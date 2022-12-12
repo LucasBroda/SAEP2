@@ -16,8 +16,17 @@ class CommentaireFactory extends Factory
      */
     public function definition()
     {
+        $notes = [1,2,3,4,5];
+
+        $createAt = $this->faker->dateTimeInInterval(
+            $startDate = '-6 months',
+            $interval = '+ 180 days',
+        );
         return [
-            //
+            'titre'=>$this->faker->title,
+            'corp'=>$this->faker->name,
+            'note'=>$this->faker->randomNumber($notes),
+            'dateUpdate'=>$createAt
         ];
     }
 }

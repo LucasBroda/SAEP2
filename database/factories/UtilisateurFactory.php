@@ -17,7 +17,10 @@ class UtilisateurFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nom'=>$this->faker->lastName,
+            'adresseMail'=>$this->faker->email,
+            'motDePasse'=>$this->faker->password,
+            'admin'=>$this->faker->boolean
         ];
     }
 }

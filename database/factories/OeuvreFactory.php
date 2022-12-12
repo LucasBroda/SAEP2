@@ -16,8 +16,16 @@ class OeuvreFactory extends Factory
      */
     public function definition()
     {
+        $createAt = $this->faker->dateTimeInInterval(
+            $startDate = '-6 months',
+            $interval = '+ 180 days',
+        );
         return [
-            //
+            'nom'=>$this->faker->name,
+            'description'=>$this->faker->name,
+            'dateInscription'=>$createAt,
+            'lien'=>$this->faker->url
+
         ];
     }
 }

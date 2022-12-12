@@ -16,8 +16,15 @@ class AuteurFactory extends Factory
      */
     public function definition()
     {
+        $createAt = $this->faker->dateTimeInInterval(
+            $startDate = '-6 months',
+            $interval = '+ 180 days',
+        );
         return [
-            //
+            'nom'=>$this->faker->lastName,
+            'prenom'=>$this->faker->firstName,
+            'nationalite'=>$this->faker->name,
+            'dateDeNaissance'=>$createAt
         ];
     }
 }

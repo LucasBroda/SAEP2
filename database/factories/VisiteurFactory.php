@@ -17,7 +17,9 @@ class VisiteurFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nom'=>$this->faker->lastName,
+            'prenom'=>$this->faker->firstName,
+            'avatar'=>$this->faker->imageUrl
         ];
     }
 }
