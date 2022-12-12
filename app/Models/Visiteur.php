@@ -12,8 +12,15 @@ class Visiteur extends Model
     public $timestamps = false;
 
     function commentaires(){
-        return;
+        return $this->hasMany(Commentaire::class);
         //Le visiteur peut faire plusieurs commentaires
+    }
+
+    /**
+     * Un visiteur peut avoir plusieurs oeuvres favorites
+     */
+    function favoris() {
+        return $this->belongsToMany(Oeuvre::class);
     }
 
 

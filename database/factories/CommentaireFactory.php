@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Oeuvre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,15 +18,17 @@ class CommentaireFactory extends Factory
     public function definition()
     {
         $notes = [1,2,3,4,5];
+        $ids = Oeuvre::all()->pluck('id')->toArray();
 
         $createAt = $this->faker->dateTimeInInterval(
             $startDate = '-6 months',
             $interval = '+ 180 days',
         );
         return [
+            'oeuvre_id' => array_rand($ids, 1) + 1,
             'titre'=>$this->faker->title,
             'corp'=>$this->faker->name,
-            'note'=>$this->faker->randomNumber($notes),
+            'note'=> array_rand($notes, 1) + 1,
             'dateUpdate'=>$createAt
         ];
     }

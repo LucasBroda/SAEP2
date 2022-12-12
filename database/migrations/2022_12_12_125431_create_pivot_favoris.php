@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('auteur_oeuvre', function (Blueprint $table) {
-            $table->foreignId('auteur_id')->constrained()->cascadeOnDelete();
+        Schema::create('oeuvre_visiteur', function (Blueprint $table) {
+            $table->foreignId('visiteur_id')->constrained()->cascadeOnDelete();
             $table->foreignId('oeuvre_id')->constrained()->cascadeOnDelete();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pivot_auteur_oeuvre');
+        Schema::dropIfExists('oeuvre_visiteur');
     }
 };
