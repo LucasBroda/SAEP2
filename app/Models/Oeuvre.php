@@ -22,4 +22,11 @@ class Oeuvre extends Model
     function comments() {
         return $this->hasMany(Commentaire::class);
     }
+
+    /**
+     * Une oeuvre peut être mise en favoris par plusieurs visiteurs
+     */
+    function visiteursFav() {
+        return $this->belongsToMany(Visiteur::class);
+    }
 }

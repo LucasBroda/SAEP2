@@ -16,5 +16,12 @@ class Visiteur extends Model
         //Le visiteur peut faire plusieurs commentaires
     }
 
+    /**
+     * Un visiteur peut avoir plusieurs oeuvres favorites
+     */
+    function favoris() {
+        return $this->belongsToMany(Oeuvre::class);
+    }
+
 
 }
