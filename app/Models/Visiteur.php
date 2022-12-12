@@ -23,5 +23,12 @@ class Visiteur extends Model
         return $this->belongsToMany(Oeuvre::class);
     }
 
+    /**
+     * Le visiteur peut avoir un compte user
+     */
+    function utilisateur() {
+        return $this->belongsTo(User::class);
+    }
+
 
 }

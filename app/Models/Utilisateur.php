@@ -12,7 +12,7 @@ class Utilisateur extends Model
     public $timestamps = false;
 
     function visiteur(){
-        return;
+        return $this->hasOne(Visiteur::class);
         //Un utilisateur peut avoir un seul compte pour un visiteur
     }
 }
