@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('avatar');
+            $table->string('url_avatar')->default('/storage/images/default-avatar.jpeg');
         });
     }
 
