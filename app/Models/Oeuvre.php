@@ -9,8 +9,10 @@ class Oeuvre extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     function auteurs(){
-        return;
+        return ;
         //Une oeuvre peut être réalisée par un ou plusieurs auteurs
     }
 }

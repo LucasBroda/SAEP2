@@ -9,6 +9,8 @@ class Visiteur extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     function commentaires(){
         return;
         //Le visiteur peut faire plusieurs commentaires

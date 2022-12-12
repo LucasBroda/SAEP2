@@ -9,6 +9,8 @@ class Utilisateur extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     function visiteur(){
         return;
         //Un utilisateur peut avoir un seul compte pour un visiteur
