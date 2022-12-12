@@ -5,12 +5,20 @@
 
 @section('main')
 
-    @can('create', \App\Models\Pokemon::class )
+    @can('create', \App\Models\Oeuvre::class )
         <h4><a href="{{ route('oeuvre.create') }}">Nouvel oeuvre</a></h4>
     @endcan
 
     <h6>Recherche tous les pokemons qui on moins de X point de vie</h6>
-
+    <form action="{{route('oeuvre.index')}}" method="get">
+        <select name="type">
+            <option value="" @if($param === null) selected @endif>-- Tous nom d'auteur --</option>
+            @foreach($auteurs as $typeLocal)
+                <option value="{{$typeLocal}}" @if($param == $typeLocal) selected @endif>{{$typeLocal}}</option>
+            @endforeach
+        </select>
+        <input type="submit" value="Recherche">
+    </form>
     @if(!empty($oeuvres))
         <ul>
             @foreach($oeuvres as $oeuvre)
@@ -33,6 +41,4 @@
     @else
         <h3>aucun oeuvre</h3>
     @endif
-
-
 @endsection
