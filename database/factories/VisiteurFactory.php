@@ -18,8 +18,7 @@ class VisiteurFactory extends Factory
     {
         return [
             'nom'=>$this->faker->lastName,
-            'prenom'=>$this->faker->firstName,
-            'avatar'=>$this->faker->imageUrl
+            'prenom'=>$this->faker->firstName
         ];
     }
 }
