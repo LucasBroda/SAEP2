@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
             $table->foreignId('oeuvre_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('visiteur_id')->constrained()->cascadeOnDelete();
             $table->string('titre');
             $table->string('corp');
             $table->integer('note');

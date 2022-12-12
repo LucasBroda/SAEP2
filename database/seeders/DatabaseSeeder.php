@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AuteurSeeder::class);
         $this->call(OeuvreSeeder::class);
-        $this->call(CommentaireSeeder::class);
         $this->call(VisiteurSeeder::class);
         $this->call(UtilisateurSeeder::class);
+        $this->call(CommentaireSeeder::class);
         $this->call(FavoriSeeder::class);
         $this->call(PivotAuteurOeuvreSeeder::class);
     }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Oeuvre;
+use App\Models\Visiteur;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,14 +19,16 @@ class CommentaireFactory extends Factory
     public function definition()
     {
         $notes = [1,2,3,4,5];
-        $ids = Oeuvre::all()->pluck('id')->toArray();
+        $idsOeuvre = Oeuvre::all()->pluck('id')->toArray();
+        $idsVisiteur = Visiteur::all()->pluck('id')->toArray();
 
         $createAt = $this->faker->dateTimeInInterval(
             $startDate = '-6 months',
             $interval = '+ 180 days',
         );
         return [
-            'oeuvre_id' => array_rand($ids, 1) + 1,
+            'oeuvre_id' => array_rand($idsOeuvre, 1) + 1,
+            'visiteur_id' => array_rand($idsVisiteur, 1) + 1,
             'titre'=>$this->faker->title,
             'corp'=>$this->faker->name,
             'note'=> array_rand($notes, 1) + 1,
