@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OeuvreController;
+use App\Http\Controllers\VisiteurController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('oeuvre', OeuvreController::class);
+
+Route::get('/info-visiteur', [VisiteurController::class, 'index']);//->middleware('auth');
