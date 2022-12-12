@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VisiteurSeeder::class);
         $this->call(ListeFavorieSeeder::class);
         $this->call(UtilisateurSeeder::class);
+        $this->call(FavoriSeeder::class);
     }
 }
