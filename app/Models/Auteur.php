@@ -11,8 +11,8 @@ class Auteur extends Model
 
     public $timestamps = false;
 
-    function oeuvre(){
-        return;
+    function oeuvres(){
+        return $this->belongsToMany(Oeuvre::class);
         //Un auteur peut créé une ou plusieurs oeuvres
     }
 }
