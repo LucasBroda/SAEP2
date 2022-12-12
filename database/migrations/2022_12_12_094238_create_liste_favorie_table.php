@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('listeFavorie', function (Blueprint $table) {
+        Schema::create('liste_favories', function (Blueprint $table) {
             $table->unsignedBigInteger('id_oeuvre');
             $table->unsignedBigInteger('id_visiteur');
-            $table->foreign('id_oeuvre')->references('id')->on('oeuvre')
+            $table->foreign('id_oeuvre')->references('id')->on('oeuvres')
                 ->onDelete('cascade');
-            $table->foreign('id_visiteur')->references('id')->on('visiteur')
+            $table->foreign('id_visiteur')->references('id')->on('visiteurs')
                 ->onDelete('cascade');
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listeFavorie');
+        Schema::dropIfExists(' liste_favories');
     }
 };
