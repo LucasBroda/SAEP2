@@ -1,0 +1,41 @@
+@startuml
+class Oeuvre{
+  nom : string
+  description : string
+  date_inscription : date
+  liens_multimedia : string
+  }
+class Auteur{
+  nom : string
+  prenom : string
+  nationalite : string
+  date_n : date
+  }
+class Commentaire{
+  titre:string
+  corp : string
+  note : integer
+  dateUpdate : date
+  }
+class Visiteur{
+  nom :string
+  prenom : string
+  avatar : string
+  }
+class Utilisateur{
+  nom : string
+  email : string
+  mdp : string
+  administrateur : boolean
+  }
+class liste_fav
+class Creation
+
+Oeuvre "0..*" -- "0..*" Auteur
+(Oeuvre, Auteur) .. Creation
+Commentaire "0..*"-up->"1" Oeuvre
+Visiteur "1"-->"0..*" Commentaire
+Utilisateur "0..*"-up->"1" Visiteur
+Oeuvre "0..*" -- "0..*" Visiteur
+(Oeuvre, Visiteur) .. liste_fav
+@enduml

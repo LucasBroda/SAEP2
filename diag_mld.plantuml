@@ -1,0 +1,55 @@
+@startuml
+
+class Oeuvre{
+  id_o : integer
+  nom : varchar(100)
+  description : varchar(1000)
+  date_inscription : date
+  liens_multimedia : varchar(1000)
+  }
+class Auteur{
+  id_a : integer
+  nom : varchar(100)
+  prenom : varchar(100)
+  nationalite : varchar(100)
+  date_n : date
+  }
+class Commentaire{
+  id_c : integer
+  id_v : integer
+  titre: varchar(100)
+  corp : varchar(100)
+  note : integer(0,5)
+  dateUpdate : date
+  }
+class Visiteur{
+  id_v : integer
+  id_u : varchar(100)
+  nom : varchar(100)
+  prenom : varchar(100)
+  avatar : varchar(1000)
+  }
+class Utilisateur{
+  id_u : integer
+  nom : varchar(100)
+  email : varchar(100)
+  mdp : varchar(100)
+  administrateur : boolean
+  }
+class Liste_fav{
+  id_o : integer
+  id_v : integer
+  }
+class Creation{
+  id_a : integer
+  id_o : integer
+  }
+
+Auteur "0..*"-left->"1..*" Creation
+Oeuvre "0..*"-right->"1..*" Creation
+Commentaire "1"-up->"1" Oeuvre
+Visiteur "0..*"-->"1" Commentaire
+Utilisateur "0..*"-up->"1" Visiteur
+Oeuvre "0..*" -up->"0..*" Liste_fav
+Visiteur "0..*" -up->"0..*" Liste_fav
+@enduml
