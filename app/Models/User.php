@@ -41,4 +41,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Le user correspond à un visiteur
+     */
+    function visiteur(){
+        return $this->belongsTo(Visiteur::class);
+    }
 }
