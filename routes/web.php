@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ExempleController;
+use App\Http\Controllers\OeuvreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/exemple', [ExempleController::class, 'main']);
+Route::resource('oeuvre', OeuvreController::class);
