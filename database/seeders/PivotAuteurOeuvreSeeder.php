@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Auteur;
 use App\Models\Oeuvre;
-use App\Models\Visiteur;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class FavoriSeeder extends Seeder
+class PivotAuteurOeuvreSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,12 +16,12 @@ class FavoriSeeder extends Seeder
      */
     public function run()
     {
-        $visiteurs = Visiteur::all();
+        $oeuvres = Oeuvre::all();
         
         // Populate the pivot table
-        Oeuvre::all()->each(function ($oeuvre) use ($visiteurs) { 
-            $oeuvre->visiteursFav()->attach(
-                $visiteurs->random(rand(1, 3))->pluck('id')->toArray()
+        Auteur::all()->each(function ($auteur) use ($oeuvres) { 
+            $auteur->oeuvres()->attach(
+                $oeuvres->random(rand(1, 3))->pluck('id')->toArray()
             ); 
         });
     }
