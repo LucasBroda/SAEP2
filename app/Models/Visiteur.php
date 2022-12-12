@@ -12,7 +12,7 @@ class Visiteur extends Model
     public $timestamps = false;
 
     function commentaires(){
-        return;
+        return $this->hasMany(Commentaire::class);
         //Le visiteur peut faire plusieurs commentaires
     }
 

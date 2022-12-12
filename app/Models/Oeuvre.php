@@ -12,7 +12,14 @@ class Oeuvre extends Model
     public $timestamps = false;
 
     function auteurs(){
-        return ;
-        //Une oeuvre peut être réalisée par un ou plusieurs auteurs
+        return $this->belongsToMany(Auteur::class);
+        // Une oeuvre peut être réalisée par un ou plusieurs auteurs
+    }
+
+    /**
+     * Une oeuvre peut avoir plusieurs commentaires
+     */
+    function comments() {
+        return $this->hasMany(Commentaire::class);
     }
 }

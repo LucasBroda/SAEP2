@@ -12,7 +12,14 @@ class Commentaire extends Model
     public $timestamps = false;
 
     function visiteur(){
-        return;
+        return $this->belongsTo(Visiteur::class);
         //Un commentaire est créé par un visiteur
+    }
+
+    /**
+     * Un commentaire appartient à une oeuvre
+     */
+    function oeuvre() {
+        return $this->belongsTo(Oeuvre::class);
     }
 }
