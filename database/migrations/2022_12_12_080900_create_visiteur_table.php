@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('utilisateur_id')->constrained()->cascadeOnDelete();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('url_avatar')->default('/storage/images/default-avatar.jpeg');
+            $table->string('url_avatar')->default('/storage/images/default-avatar.png');
         });
     }
 
