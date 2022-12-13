@@ -5,7 +5,15 @@
             <div class="col p-5 mb-4 bg-light rounded-3">
                 <div class="container-fluid py-5">
                   <h1 class="display-5 fw-bold">{{ $visiteur->prenom }} {{ $visiteur->nom }}</h1>
-                  <img src="{{ url($visiteur->url_avatar) }}" alt="avatar" srcset="">
+                  <img src="{{ url($visiteur->url_avatar) }}" alt="avatar" srcset="" width="200px">
+                  <form method="post" action="{{route('visiteur.upload')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                      <label for="avatar">Modifier l'avatar</label>
+                      <input type="file" class="form-control-file" id="avatar" name="avatar">
+                      <button class="btn btn-secondary" type="submit">Valider</button>
+                    </div>
+                  </form>
                 </div>
             </div> 
             <div class="col-md-6">
@@ -13,18 +21,17 @@
                 <ul>
                     @foreach ($visiteur->commentaires as $comment)
                     <li>
-                        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                            <div class="col p-4 d-flex flex-column position-static">
-                                <strong class="d-inline-block mb-2 text-primary">Oeuvre : {{ $comment->oeuvre->nom }}</strong>
-                                <h3 class="mb-0"> {{ $comment->titre }} </h3>
-                                <div class="mb-1 text-muted"> {{ $comment->dateUpdate }} </div>
-                                <p class="card-text mb-auto"> {{ $comment->corp }}</p>
-                                <a href="#" class="stretched-link">Modifier le commentaire</a>
-                                </div>
-                                <div class="col-auto d-none d-lg-block">
-                                <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Note : {{ $comment->note }} / 5</text></svg>
-                            </div>
+                      <div class="card" style="width: 18rem; margin: 50px 0;">
+                        <div class="card-body">
+                          <a href=" {{ route('oeuvre.show', ['oeuvre' => $comment->oeuvre]) }} " class="icon-link d-inline-flex align-items-center">
+                            Oeuvre : {{ $comment->oeuvre->nom }}
+                            <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
+                          </a>
+                          <h5 class="card-title"> {{ $comment->titre }}</h5>
+                          <p class="card-text"> {{ $comment->corp }}</p>
+                          <a href="#" class="btn btn-secondary">Modifier le commentaire</a>
                         </div>
+                      </div>
                     </li>
                     @endforeach
                 </ul>

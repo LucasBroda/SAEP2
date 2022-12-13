@@ -20,4 +20,5 @@ Route::get('/', function () {
 });
 Route::resource('oeuvre', OeuvreController::class);
 
-Route::get('/info-visiteur', [VisiteurController::class, 'index']);//->middleware('auth');
+Route::get('/info-visiteur', [VisiteurController::class, 'index'])->name('visiteur.info');//->middleware('auth'); CHANGER QUAND L'AUTH SERA FAIT
+Route::post('/info-visiteur/upload', [VisiteurController::class, 'upload'])->name('visiteur.upload');
