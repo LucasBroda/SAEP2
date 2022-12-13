@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Utilisateur;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +17,11 @@ class VisiteurFactory extends Factory
      */
     public function definition()
     {
-        $idsUtilisateurs = Utilisateur::all()->pluck('id')->toArray();
+        $idsUtilisateurs = User::all()->pluck('id')->toArray();
         return [
             'nom'=>$this->faker->lastName,
             'prenom'=>$this->faker->firstName,
-            'utilisateur_id' => array_rand($idsUtilisateurs, 1) + 1,
+            'user_id' => array_rand($idsUtilisateurs, 1) + 1,
         ];
     }
 }

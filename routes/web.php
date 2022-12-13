@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', function(){
+    return view('auth.home');
+})->middleware(['auth', 'verified'])->name('home');
+
 Route::resource('oeuvre', OeuvreController::class);
 
 Route::get('/info-visiteur', [VisiteurController::class, 'index'])->name('visiteur.info');//->middleware('auth'); CHANGER QUAND L'AUTH SERA FAIT
