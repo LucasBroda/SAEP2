@@ -10,6 +10,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+    @include('partials.navbar')
     @yield('content')
 </body>
 </html>

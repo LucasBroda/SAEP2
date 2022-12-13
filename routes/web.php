@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OeuvreController;
+use App\Http\Controllers\VisiteurController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('oeuvre', OeuvreController::class);
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/info-visiteur', [VisiteurController::class, 'index'])->name('visiteur.info');//->middleware('auth'); CHANGER QUAND L'AUTH SERA FAIT
+Route::post('/info-visiteur/upload', [VisiteurController::class, 'upload'])->name('visiteur.upload');
