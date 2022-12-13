@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auteur;
+use App\Models\Favori;
 use App\Models\Oeuvre;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -17,24 +18,22 @@ class OeuvreController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(Request $request) {
             $user = Auth::user();
-            $auteurs = Auteur::all()->pluck('nom');
+            $oeuvres = Oeuvre::all();
+            $auteurs = Auteur::all();
             $action = $request->input('action');
             $param = $request->input('nom',null);
-            $oeuvres = DB::table('auteur_oeuvre')
-                ->join('auteurs','auteur_oeuvre.auteur_id','=','auteurs.id')
-                ->join('oeuvres','auteur_oeuvre.oeuvre_id','=','oeuvres.id')
-                ->where('auteurs.nom', '=',$param)
-                ->select('oeuvres.*')
-                ->get();
-            $list_fav = [];
+        if($param) {
+            $auteur = Auteur::find($param);
+            $oeuvres = $auteur->oeuvres;
+        }
+        $list_fav = [];
             if($user !== null){
-                $list_fav = $user->favoris;
                 if($action === 'ajouter_fav'){
-
+                    $id_oeuvre = $request->input('id_o');
+                    $oeuvre = Oeuvre::find($id_oeuvre);
+                    $oeuvre->visiteursFav()->attach($user->visiteur->id);
+                    $list_fav = $user->visiteur->favoris;
                 }
-            }
-            if($param === null){
-                $oeuvres = Oeuvre::all();
             }
             if($action === 'note'){
                 $list_oeuvres=Oeuvre::all();
@@ -55,7 +54,7 @@ class OeuvreController extends BaseController
                 }
                 return view('oeuvre.index',[
                     'oeuvres'=>$top_note,
-                    'param' => Auteur::all(),
+                    'param' => -1,
                     'auteurs' => $auteurs,
                     'list_fav' => $list_fav,
                     ]);
@@ -67,18 +66,19 @@ class OeuvreController extends BaseController
                 $oeuvres=[$list[0],$list[1],$list[2],$list[3],$list[4]];
                 return view('oeuvre.index',[
                     'oeuvres'=>$oeuvres,
-                    'param' => Auteur::all(),
+                    'param' => -1,
                     'auteurs' => $auteurs,
                     'list_fav'=>$list_fav,
                 ]);
             }
         return view('oeuvre.index', [
             'oeuvres' => $oeuvres,
-            'param' => Auteur::all(),
+            'param' => -1,
             'auteurs' => $auteurs,
             'list_fav' => $list_fav,
         ]);
         }
+
     function show($id){
         $oeuvre = Oeuvre::find($id);
         //moyenne
