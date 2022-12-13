@@ -36,8 +36,8 @@
                     <a href="{{ route('oeuvre.edit', $oeuvre->id) }}"> EDIT </a>
                 @endcan
                 <hr>
+            @endforeach
         </ul>
-        @endforeach
 
     @else
         <h3>aucun oeuvre</h3>

@@ -15,16 +15,14 @@ class OeuvreController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(Request $request) {
-            $oeuvres = Oeuvre::all();
             $auteurs = Auteur::all()->pluck('nom');
             $action = $request->input('action');
             $param = $request->input('nom',null);
-            $cookieNom = $request->cookie('nom', null);
             $oeuvres = DB::table('auteur_oeuvre')
                 ->join('auteurs','auteur_oeuvre.auteur_id','=','auteurs.id')
                 ->join('oeuvres','auteur_oeuvre.oeuvre_id','=','oeuvres.id')
                 ->where('auteurs.nom', '=',$param)
-                ->select('oeuvres.*','auteurs.id','auteurs.nom as auteur_nom')
+                ->select('oeuvres.*')
                 ->get();
             if($param === null){
                 $oeuvres = Oeuvre::all();
@@ -33,26 +31,21 @@ class OeuvreController extends BaseController
                 $list_oeuvres=Oeuvre::all();
                 $list=[];
                 foreach($list_oeuvres as $oeuvre){
-                    $list_commentaire = DB::table('commentaires')
-                        ->where('oeuvre_id','=',$oeuvre->id)
-                        ->get();
+                    $list_commentaire = $oeuvre->comments;
                     $note_totale=0;
                     foreach ($list_commentaire as $commentaire){
                         $note_totale=$note_totale+$commentaire->note;
                     }
                     $note_oeuvre = $note_totale/count($list_commentaire);
-                    $list[]=["note"=>$note_oeuvre,1=>$oeuvre->id];
+                    $list[]=['note'=>$note_oeuvre,'oeuvre'=>$oeuvre];
                 }
-
                 array_multisort($list,SORT_DESC);
+                $top_note= [];
                 for($i=0;$i<=4;$i++){
-                    $transition[]=Db::table('oeuvres')
-                        ->where('id','=',$list[$i][1])
-                        ->get();
+                    $top_note[]=$list[$i]['oeuvre'];
                 }
-                $oeuvres=[$transition[0][0],$transition[1][0],$transition[2][0],$transition[3][0],$transition[4][0]];
                 return view('oeuvre.index',[
-                    'oeuvres'=>$oeuvres,
+                    'oeuvres'=>$top_note,
                     'param' => Auteur::all(),
                     'auteurs' => $auteurs
                     ]);
@@ -76,23 +69,9 @@ class OeuvreController extends BaseController
         }
     function show($id){
         $oeuvre = Oeuvre::find($id);
-        $auteurs = DB::table('auteur_oeuvre')
-        ->join('auteurs','auteur_oeuvre.auteur_id','=','auteurs.id')
-        ->join('oeuvres','auteur_oeuvre.oeuvre_id','=','oeuvres.id')
-        ->where('oeuvres.id', '=',$id)
-        ->select('auteurs.nom','auteurs.prenom','auteurs.nationalite','auteurs.dateDeNaissance')
-        ->get();
-        $commentaires = DB::table('commentaires')
-            ->where('oeuvre_id','=',$id)
-            ->select('commentaires.titre','commentaires.corp','commentaires.note','commentaires.dateUpdate')
-            ->orderBy('dateUpdate')
-            ->get();
         //moyenne
-        $list=[];
-        //$list_commentaire = DB::table('commentaires')
-            //->where('oeuvre_id','=',$id)
-            //->get();
         $commentaires = $oeuvre->comments;
+        $auteurs = $oeuvre->auteurs;
         $note_totale=0;
         $nbr_notes = 0;
         $v_max = -1;
