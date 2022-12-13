@@ -11,6 +11,12 @@ class Visiteur extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'nom',
+        'prenom',
+        'user_id'
+    ];
+
     function commentaires(){
         return $this->hasMany(Commentaire::class);
         //Le visiteur peut faire plusieurs commentaires
