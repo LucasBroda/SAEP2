@@ -19,7 +19,7 @@
         <input type="submit" value="Recherche">
     </form>
     <a href="{{ route('oeuvre.index',["action"=>"note"]) }}">voir les oeuvres les mieux note</a></br>
-    <a href="{{ route('oeuvre.index',["action"=>"top"]) }}">voir les oeuvres les moins recentes</a>
+    <a href="{{ route('oeuvre.index',["action"=>"top"]) }}">voir les oeuvres les plus recentes</a>
     @if(!empty($oeuvres))
         <ul>
             @foreach($oeuvres as $oeuvre)
