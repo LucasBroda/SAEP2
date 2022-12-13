@@ -13,8 +13,17 @@
             <strong>nom         :</strong>{{ $oeuvre->nom }}</br>
             <strong>description :</strong>{{ $oeuvre->description }}</br>
             <strong>date ajout  :</strong>{{ $oeuvre->dateInscription }}</br>
-            <strong>auteurs     :</strong>
-            </br>
+            <strong>auteurs     :</strong></br>
+            <ul>
+                @foreach($auteurs as $auteur)
+                    <br>
+                    <strong>nom :</strong>  {{ $auteur->nom}}</br>
+                    <strong>prenom : </strong> {{ $auteur->prenom }}</br>
+                    <strong>nationalite :</strong> {{ $auteur->nationalite }}</br>
+                    <strong>date de naissance :</strong> {{ $auteur->dateDeNaissance }}</br>
+                    <hr>
+            </ul>
+            @endforeach
         </table>
         @endsection
 

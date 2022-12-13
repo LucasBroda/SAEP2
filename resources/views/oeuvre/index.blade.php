@@ -9,7 +9,6 @@
         <h4><a href="{{ route('oeuvre.create') }}">Nouvel oeuvre</a></h4>
     @endcan
 
-    <h6>Recherche tous les pokemons qui on moins de X point de vie</h6>
     <form action="{{route('oeuvre.index')}}" method="get">
         <select name="nom">
             <option value="" @if($param === null) selected @endif>-- Tous nom d'auteur --</option>
@@ -19,6 +18,8 @@
         </select>
         <input type="submit" value="Recherche">
     </form>
+    <a href="{{ route('oeuvre.index',["action"=>"note"]) }}">voir les oeuvres les mieux note</a></br>
+    <a href="{{ route('oeuvre.index',["action"=>"top"]) }}">voir les oeuvres les moins recentes</a>
     @if(!empty($oeuvres))
         <ul>
             @foreach($oeuvres as $oeuvre)

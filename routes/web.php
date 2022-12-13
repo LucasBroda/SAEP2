@@ -18,3 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('oeuvre', OeuvreController::class);
+Route::get('/', function () {
+    return view('welcome');
+});
