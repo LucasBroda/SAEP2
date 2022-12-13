@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\Visiteur;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -39,6 +40,11 @@ class CreateNewUser implements CreatesNewUsers
             'admin'=>false,
         ]);
 
+        //Visiteur::create([
+            //'nom'=>$input['nom'],
+            //'prenom'=>$input['prenom'],
+            //'avatar'=>$input['url'],
+        //]);
         return $user;
     }
 }
