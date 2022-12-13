@@ -23,6 +23,13 @@
     @if(!empty($oeuvres))
         <ul>
             @foreach($oeuvres as $oeuvre)
+                @if(Auth::user() and $list_fav !== null)
+                    @foreach($list_fav as $fav)
+                        @if($oeuvre === $fav)
+                            est dans tes favorie
+                        @endif
+                    @endforeach
+                @endif
                 <br>
                 @can('createOeuvre', $oeuvre)
                     <h4><a href="{{ route('oeuvre.create') }}">Nouveau oeuvre</a></h4>
@@ -32,9 +39,9 @@
                 <strong>description : </strong> {{ $oeuvre->description }}</br>
                 <strong>dateInscription :</strong> {{ $oeuvre->dateInscription }}</br>
                 <strong>lien :</strong> {{ $oeuvre->lien }}</br>
-                @can('update', $oeuvre)
-                    <a href="{{ route('oeuvre.edit', $oeuvre->id) }}"> EDIT </a>
-                @endcan
+                @if(Auth::user())
+                        <a href="{{ route('oeuvre.index',["action"=>"ajouter_fav","id_o"=>$oeuvre->id]) }}">ajouter au favorie</a>
+                @endif
                 <hr>
             @endforeach
         </ul>
