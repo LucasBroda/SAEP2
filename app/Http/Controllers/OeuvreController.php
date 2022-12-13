@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auteur;
-use App\Models\Favori;
+use App\Models\Commentaire;
 use App\Models\Oeuvre;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -111,5 +111,61 @@ class OeuvreController extends BaseController
             'nbr_notes'=> $nbr_notes,
             'nbr_fav'=> $nbr_fav,
         ]);
+    }
+
+    function create(){
+
+        $commentaire = Commentaire::all();
+
+        if(Auth::user()->can('create',$commentaire)){
+            return view('oeuvre.create', ['commentaire'=>$commentaire]);
+        }
+
+        return redirect()->route('oeuvre.index');
+
+    }
+
+    function delete(){
+        $commentaire = Commentaire::all();
+
+        if(Auth::user()->can('delete', $commentaire)){
+            return view('oeuvre.delete', ['commentaire'=>$commentaire]);
+        }
+
+        return redirect()->route('oeuvre.delete');
+    }
+
+    function edit(){
+        $commentaire = Commentaire::all();
+
+        if(Auth::user()->can('edit', $commentaire)){
+            return view('oeuvre.edit', ['commentaire'=>$commentaire]);
+        }
+
+        return redirect()->route('oeuvre.edit');
+    }
+
+    function store(Request $request){
+
+        $this->validate(
+            $request, [
+                'titre' => 'required',
+                'corp'=>'required',
+                'note'=>'required',
+                'dateUpdate'=>'required'
+            ]
+        );
+
+        $commentaire = new Commentaire();
+
+        $commentaire->titre = $request->titre;
+        $commentaire->corp = $request->corp;
+        $commentaire->note = $request->note;
+        $commentaire->dateUpdate = $request->dateUpdate;
+
+        $commentaire->save();
+
+        return redirect()->route('oeuvre.index');
+
     }
 }
