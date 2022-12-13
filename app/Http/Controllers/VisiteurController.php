@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class VisiteurController extends Controller
 {
     /**
-     * Affichage et modification des informations d’un visiteur  
+     * Affichage et modification des informations d’un visiteur
      * L'utilisateur doit être connecté pour arriver ici
      */
     public function index() {
-        $user = Utilisateur::find(1);
+
         // Changer quand l'authentification sera faite
-        // $user = User::find(Auth::user()); 
+        $user = User::find(Auth::user());
         return view('visiteur.index', [
             'visiteur' => $user->visiteur
         ]);
@@ -26,9 +28,8 @@ class VisiteurController extends Controller
      * Upload du nouvel avatar d'un visiteur
      */
     public function upload(Request $request) {
-        $visiteur = Utilisateur::find(1)->visiteur;
         // Changer quand l'authentification sera faite
-        // $user = User::find(Auth::user()); 
+        $visiteur = User::find(Auth::user()->visiteur);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $file = $request->file('avatar');
