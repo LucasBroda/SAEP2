@@ -76,8 +76,7 @@ class OeuvreController extends BaseController
                 ]);
             }
         }
-    function show($id)
-    {
+    function show($id){
         $oeuvre = Oeuvre::find($id);
         $auteurs = DB::table('auteur_oeuvre')
         ->join('auteurs','auteur_oeuvre.auteur_id','=','auteurs.id')
@@ -85,9 +84,43 @@ class OeuvreController extends BaseController
         ->where('oeuvres.id', '=',$id)
         ->select('auteurs.nom','auteurs.prenom','auteurs.nationalite','auteurs.dateDeNaissance')
         ->get();
+        $commentaires = DB::table('commentaires')
+            ->where('oeuvre_id','=',$id)
+            ->select('commentaires.titre','commentaires.corp','commentaires.note','commentaires.dateUpdate')
+            ->orderBy('dateUpdate')
+            ->get();
+        //moyenne
+        $list=[];
+        //$list_commentaire = DB::table('commentaires')
+            //->where('oeuvre_id','=',$id)
+            //->get();
+        $commentaires = $oeuvre->comments;
+        $note_totale=0;
+        $nbr_notes = 0;
+        $v_max = -1;
+        $v_min = 1000;
+        foreach ($commentaires as $commentaire){
+            $note_totale+=$commentaire->note;
+            if($commentaire->note>$v_max){
+                $v_max = $commentaire->note;
+            }
+            if($commentaire->note<$v_min){
+                $v_min = $commentaire->note;
+            }
+            $nbr_notes +=1;
+        }
+        $nbr_fav = $oeuvre->visiteursFav()->where('oeuvre_id','=',$id)->count();
+        $moyenne = $note_totale/count($commentaires);
+
         return view('oeuvre.show', [
             'oeuvre' => $oeuvre,
-            'auteurs' => $auteurs
+            'auteurs' => $auteurs,
+            'commentaires' => $commentaires,
+            'moyenne'=> $moyenne,
+            'v_max'=> $v_max,
+            'v_min'=> $v_min,
+            'nbr_notes'=> $nbr_notes,
+            'nbr_fav'=> $nbr_fav,
         ]);
     }
 }

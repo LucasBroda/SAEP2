@@ -18,7 +18,7 @@ class CommentaireFactory extends Factory
      */
     public function definition()
     {
-        $notes = [1,2,3,4,5];
+        $notes = [0,1,2,3,4,5];
         $idsOeuvre = Oeuvre::all()->pluck('id')->toArray();
         $idsVisiteur = Visiteur::all()->pluck('id')->toArray();
 
