@@ -9,8 +9,8 @@
         <li> Bonjour {{ Auth::user()->nom }}</li>
         @if (Auth::user())
             <li><a href="{{ route('oeuvre.create') }}">Création d'un nouveau commentaire</a></li>
-            <li><a href="{{ route('oeuvre.edit') }}">Modification d'un commentaire</a></li>
-            <li><a href="{{ route('oeuvre.delete') }}">Suppression d'un commentaire</a></li>
+            <li><a href="{{ route('oeuvre.edit', ['oeuvre'=>$oeuvre]) }}">Modification d'un commentaire</a></li>
+            <li><a href="{{ route('oeuvre.delete', ['oeuvre'=>$oeuvre]) }}">Suppression d'un commentaire</a></li>
         @endif
         <hr class="mt-2 mb-2">
         <br>
