@@ -139,8 +139,6 @@ class OeuvreController extends BaseController
 
         $this->validate(
             $request, [
-                'oeuvre_id'=>'required',
-                'visiteur_id'=>'required',
                 'titre' => 'required',
                 'corp'=>'required',
                 'note'=>'required',
@@ -150,8 +148,6 @@ class OeuvreController extends BaseController
 
         $commentaire = new Commentaire();
 
-        $commentaire->oeuvre_id = $request->oeuvre_id;
-        $commentaire->visiteur_id = $request->visiteur_id;
         $commentaire->titre = $request->titre;
         $commentaire->corp = $request->corp;
         $commentaire->note = $request->note;
