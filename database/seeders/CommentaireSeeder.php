@@ -15,6 +15,6 @@ class CommentaireSeeder extends Seeder
      */
     public function run()
     {
-        Commentaire::factory(20)->create();
+        Commentaire::factory(80)->create();
     }
 }
