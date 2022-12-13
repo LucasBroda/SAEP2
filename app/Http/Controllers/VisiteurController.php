@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favori;
 use App\Models\User;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class VisiteurController extends Controller
         return view('visiteur.index', [
             'visiteur' => $user->visiteur
         ]);
+
     }
 
     /**
