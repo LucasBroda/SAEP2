@@ -14,6 +14,7 @@
             <nav>
                 <a href="#">A Propos</a>
                 <a href="{{ route('oeuvre.index') }}">Les oeuvre</a>
+                <a href="{{ route('visiteur.info') }}">Infos visiteur</a>
             </nav>
         </header>'
     @show
