@@ -23,8 +23,7 @@ class OeuvreFactory extends Factory
         return [
             'nom'=>$this->faker->name,
             'description'=>$this->faker->name,
-            'dateInscription'=>$createAt,
-            'lien'=>$this->faker->url
+            'dateInscription'=>$createAt
 
         ];
     }

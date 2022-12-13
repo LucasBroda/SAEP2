@@ -46,6 +46,6 @@ class User extends Authenticatable
      * Le user correspond à un visiteur
      */
     function visiteur(){
-        return $this->belongsTo(Visiteur::class);
+        return $this->hasOne(Visiteur::class);
     }
 }

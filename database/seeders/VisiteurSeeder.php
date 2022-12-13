@@ -17,4 +17,12 @@ class VisiteurSeeder extends Seeder
     {
         Visiteur::factory(20)->create();
     }
+
+    public static function createVisiteur($user, $prenom) {
+        $visiteur = new Visiteur();
+        $visiteur['nom'] = $user['name'];
+        $visiteur['prenom'] = $prenom;
+        $visiteur['user_id'] = $user->id;
+        $visiteur->save();
+    }
 }
