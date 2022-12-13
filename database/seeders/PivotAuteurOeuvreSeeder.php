@@ -17,12 +17,15 @@ class PivotAuteurOeuvreSeeder extends Seeder
     public function run()
     {
         $oeuvres = Oeuvre::all();
-        
+
         // Populate the pivot table
-        Auteur::all()->each(function ($auteur) use ($oeuvres) { 
-            $auteur->oeuvres()->attach(
-                $oeuvres->random(rand(1, 3))->pluck('id')->toArray()
-            ); 
-        });
+        $faker = \Faker\Factory::create('fr_FR');
+        $auteurs = Auteur::all()->pluck('id');
+        foreach ($oeuvres as $oeuvre){
+            $nb = $faker->numberBetween(1,3);
+            $oeuvre->auteurs()->attach(
+                $faker->randomElements($auteurs,$nb)
+            );
+        }
     }
 }

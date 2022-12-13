@@ -11,9 +11,9 @@
 
     <form action="{{route('oeuvre.index')}}" method="get">
         <select name="nom">
-            <option value="" @if($param === null) selected @endif>-- Tous nom d'auteur --</option>
-            @foreach($auteurs as $nomLocal)
-                <option value="{{$nomLocal}}" @if($param == $nomLocal) selected @endif>{{$nomLocal}}</option>
+            <option value=""  selected >-- Tous nom d'auteur --</option>
+            @foreach($auteurs as $auteur)
+                <option value="{{$auteur->id}}" @if($param == $auteur->id) selected @endif>{{$auteur->nom}}</option>
             @endforeach
         </select>
         <input type="submit" value="Recherche">
@@ -23,10 +23,12 @@
     @if(!empty($oeuvres))
         <ul>
             @foreach($oeuvres as $oeuvre)
-                @if(Auth::user() and $list_fav !== null)
+                @if(Auth::user())
                     @foreach($list_fav as $fav)
-                        @if($oeuvre === $fav)
-                            est dans tes favorie
+                        @if($oeuvre->id === $fav->id )
+                            est dans tes fav <a href="{{ route('oeuvre.index',["action"=>"supr_fav","id_o"=>$oeuvre->id]) }}">suprimer des favorie</a>
+                        @else
+                            <a href="{{ route('oeuvre.index',["action"=>"ajouter_fav","id_o"=>$oeuvre->id]) }}">ajouter au favorie</a>
                         @endif
                     @endforeach
                 @endif
@@ -39,9 +41,7 @@
                 <strong>description : </strong> {{ $oeuvre->description }}</br>
                 <strong>dateInscription :</strong> {{ $oeuvre->dateInscription }}</br>
                 <strong>lien :</strong> {{ $oeuvre->lien }}</br>
-                @if(Auth::user())
-                        <a href="{{ route('oeuvre.index',["action"=>"ajouter_fav","id_o"=>$oeuvre->id]) }}">ajouter au favorie</a>
-                @endif
+
                 <hr>
             @endforeach
         </ul>
