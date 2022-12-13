@@ -29,13 +29,6 @@ class OeuvreController extends BaseController
             if($param === null){
                 $oeuvres = Oeuvre::all();
             }
-            if($action === null){
-                return view('oeuvre.index', [
-                    'oeuvres' => $oeuvres,
-                    'param' => Auteur::all(),
-                    'auteurs' => $auteurs
-                ]);
-            }
             if($action === 'note'){
                 $list_oeuvres=Oeuvre::all();
                 $list=[];
@@ -75,6 +68,11 @@ class OeuvreController extends BaseController
                     'auteurs' => $auteurs,
                 ]);
             }
+        return view('oeuvre.index', [
+            'oeuvres' => $oeuvres,
+            'param' => Auteur::all(),
+            'auteurs' => $auteurs
+        ]);
         }
     function show($id){
         $oeuvre = Oeuvre::find($id);
