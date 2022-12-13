@@ -13,6 +13,7 @@
             <strong>nom         :</strong>{{ $oeuvre->nom }}</br>
             <strong>description :</strong>{{ $oeuvre->description }}</br>
             <strong>date ajout  :</strong>{{ $oeuvre->dateInscription }}</br>
+            <img src="{{ url($oeuvre->lien) }}" alt="image oeuvre" srcset="" width="200px">
             <br>
             <strong>Statistique de l'oeuvre :</strong>
             <ul>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('description');
             $table->date('dateInscription');
-            $table->string('lien');
+            $table->string('lien')->default('/storage/images/default-oeuvre.jpg');
         });
     }
 
