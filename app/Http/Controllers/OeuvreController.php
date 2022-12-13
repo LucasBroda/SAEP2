@@ -9,12 +9,14 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OeuvreController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function index(Request $request) {
+            $user = Auth::user();
             $auteurs = Auteur::all()->pluck('nom');
             $action = $request->input('action');
             $param = $request->input('nom',null);
@@ -24,6 +26,13 @@ class OeuvreController extends BaseController
                 ->where('auteurs.nom', '=',$param)
                 ->select('oeuvres.*')
                 ->get();
+            $list_fav = [];
+            if($user !== null){
+                $list_fav = $user->favoris;
+                if($action === 'ajouter_fav'){
+
+                }
+            }
             if($param === null){
                 $oeuvres = Oeuvre::all();
             }
@@ -47,7 +56,8 @@ class OeuvreController extends BaseController
                 return view('oeuvre.index',[
                     'oeuvres'=>$top_note,
                     'param' => Auteur::all(),
-                    'auteurs' => $auteurs
+                    'auteurs' => $auteurs,
+                    'list_fav' => $list_fav,
                     ]);
             }
             if($action === 'top'){
@@ -59,12 +69,14 @@ class OeuvreController extends BaseController
                     'oeuvres'=>$oeuvres,
                     'param' => Auteur::all(),
                     'auteurs' => $auteurs,
+                    'list_fav'=>$list_fav,
                 ]);
             }
         return view('oeuvre.index', [
             'oeuvres' => $oeuvres,
             'param' => Auteur::all(),
-            'auteurs' => $auteurs
+            'auteurs' => $auteurs,
+            'list_fav' => $list_fav,
         ]);
         }
     function show($id){
