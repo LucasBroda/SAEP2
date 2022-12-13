@@ -18,7 +18,7 @@ class VisiteurController extends Controller
     public function index() {
 
         // Changer quand l'authentification sera faite
-        $user = User::find(Auth::user());
+        $user = Auth::user();
         return view('visiteur.index', [
             'visiteur' => $user->visiteur
         ]);
@@ -29,7 +29,7 @@ class VisiteurController extends Controller
      */
     public function upload(Request $request) {
         // Changer quand l'authentification sera faite
-        $visiteur = User::find(Auth::user()->visiteur);
+        $visiteur = Auth::user()->visiteur;
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $file = $request->file('avatar');
